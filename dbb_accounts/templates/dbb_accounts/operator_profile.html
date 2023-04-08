@@ -1,0 +1,82 @@
+{% extends 'dbb_design/base.html' %}
+
+{% block head %}
+<title>Home - DBB</title>
+{% endblock head %}
+
+{% block page_header %}
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col-sm-6">
+      <h1>{{ operator.user }} - Profile</h1>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">{{ operator.operator.department }}</a></li>
+        <li class="breadcrumb-item active">{{ operator.operator.user.first_name }}</li>
+      </ol>
+    </div>
+  </div>
+</div>
+{% endblock page_header %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-10">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Personal Data</h3>
+      </div>
+      <form action="{% url 'dbb_accounts:operator_profile' operator_id=operator.operator.id %}" method="post">
+        {% csrf_token %}
+        {{ form.username }}
+        <div class="card-body">
+
+          <div class="form-group row">
+            <label for="First Name" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+              {{ form.first_name }}
+            </div>
+            {{ form.first_name.errors }}
+          </div>
+
+          <div class="form-group row">
+            <label for="First Name" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+              {{ form.last_name }}
+            </div>
+            {{ form.last_name.errors }}
+          </div>
+
+          <div class="form-group row">
+            <label for="Email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              {{ form.email }}
+            </div>
+            {{ form.email.errors }}
+          </div>
+
+          <div class="form-group row">
+            <label for="Email" class="col-sm-2 col-form-label">Department</label>
+            <div class="col-sm-10">
+              {{ form.department }}
+            </div>
+            {{ form.departament.errors }}
+          </div>
+          
+          <div class="form-group row">
+            <label for="Permissions" class="col-sm-2 col-form-label">System Permissions</label>
+            <div class="col-sm-10">
+              {{ form.permissions }}
+            </div>
+            {{ form.permissions.errors }}
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
